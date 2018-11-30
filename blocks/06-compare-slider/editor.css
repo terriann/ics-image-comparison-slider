@@ -1,0 +1,43 @@
+/**
+ * Note that these styles are loaded *before* editor styles, so that
+ * editor-specific styles using the same selectors will take precedence.
+ */
+ .wp-block-gutenberg-examples-example-06-compare-slider .cslider-image-left {
+	background: #f1f1f1;
+	float: left;
+	width: 50%;
+	min-height: 100px;
+	text-align: center;
+}
+.wp-block-gutenberg-examples-example-06-compare-slider .cslider-image-right {
+	background: #f1f1f1;
+	float: right;
+	width: 50%;
+	min-height: 100px;
+	text-align: center;
+}
+
+.wp-block-gutenberg-examples-example-06-compare-slider .cslider-image-left button,
+.wp-block-gutenberg-examples-example-06-compare-slider .cslider-image-right button {
+	margin-top: 30px;
+}
+
+.wp-block-gutenberg-examples-example-06-compare-slider .cslider-image-left button.image-button,
+.wp-block-gutenberg-examples-example-06-compare-slider .cslider-image-right button.image-button {
+	margin: 0;
+	padding: 0;
+	display: block;
+}
+
+.wp-block-gutenberg-examples-example-06-compare-slider .cslider-image-left img,
+.wp-block-gutenberg-examples-example-06-compare-slider .cslider-image-right img {
+	display: block;
+	z-index: 1;
+	position: relative;
+}
+
+.wp-block-gutenberg-examples-example-06-compare-slider:after {
+	content:"";
+	clear:both;
+	display: table;
+}
