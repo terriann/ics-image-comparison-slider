@@ -1,1 +1,240 @@
-!function(e){function t(r){if(a[r])return a[r].exports;var n=a[r]={i:r,l:!1,exports:{}};return e[r].call(n.exports,n,n.exports,t),n.l=!0,n.exports}var a={};t.m=e,t.c=a,t.d=function(e,a,r){t.o(e,a)||Object.defineProperty(e,a,{configurable:!1,enumerable:!0,get:r})},t.n=function(e){var a=e&&e.__esModule?function(){return e.default}:function(){return e};return t.d(a,"a",a),a},t.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},t.p="",t(t.s=0)}([function(e,t){var a=wp.i18n,r=a.__,n=a.setLocaleData,l=wp.blocks.registerBlockType,m=wp.editor,i=(m.RichText,m.MediaUpload),c=wp.components.Button;n(window.gutenberg_examples_05_esnext.localeData,"gutenberg-examples"),l("gutenberg-examples/example-06-compare-slider",{title:r("Compare Slider","gutenberg-examples"),icon:"camera",category:"layout",attributes:{mediaID_left:{type:"number"},mediaURL_left:{type:"string",source:"attribute",selector:"img.compare-image-left",attribute:"src"},mediaID_right:{type:"number"},mediaURL_right:{type:"string",source:"attribute",selector:"img.compare-image-right",attribute:"src"}},edit:function(e){var t=e.className,a=e.attributes,n=a.mediaID_left,l=a.mediaURL_left,m=a.mediaID_right,o=a.mediaURL_right,s=e.setAttributes,g=function(e){s({mediaURL_left:e.url,mediaID_left:e.id})},u=function(e){s({mediaURL_right:e.url,mediaID_right:e.id})};return wp.element.createElement("div",{className:t},wp.element.createElement("div",{className:"cslider-image-left"},wp.element.createElement(i,{onSelect:g,className:"compare-image-left",allowedTypes:"image",value:n,render:function(e){var t=e.open;return wp.element.createElement(c,{className:n?"image-button":"button button-large",onClick:t},n?wp.element.createElement("img",{src:l,alt:r("Before Image","gutenberg-examples")}):r("Upload Before Image","gutenberg-examples"))}})),wp.element.createElement("div",{className:"cslider-image-right"},wp.element.createElement(i,{onSelect:u,className:"compare-image-right",allowedTypes:"image",value:m,render:function(e){var t=e.open;return wp.element.createElement(c,{className:m?"image-button":"button button-large",onClick:t},m?wp.element.createElement("img",{src:o,alt:r("After Image","gutenberg-examples")}):r("Upload After Image","gutenberg-examples"))}})))},save:function(e){var t=e.className,a=e.attributes,n=a.mediaURL_left,l=a.mediaURL_right;return wp.element.createElement("div",{className:t},wp.element.createElement("div",{id:"container1",class:"twentytwenty-container"},n&&wp.element.createElement("img",{className:"compare-image-left",src:n,alt:r("Before Image","gutenberg-examples")}),l&&wp.element.createElement("img",{className:"compare-image-right",src:l,alt:r("After Image","gutenberg-examples")})))}})}]);
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ })
+/************************************************************************/
+/******/ ([
+/* 0 */
+/***/ (function(module, exports) {
+
+var _wp$i18n = wp.i18n,
+    __ = _wp$i18n.__,
+    setLocaleData = _wp$i18n.setLocaleData;
+var registerBlockType = wp.blocks.registerBlockType;
+var _wp$editor = wp.editor,
+    RichText = _wp$editor.RichText,
+    MediaUpload = _wp$editor.MediaUpload,
+    InspectorControls = _wp$editor.InspectorControls;
+var _wp$components = wp.components,
+    Button = _wp$components.Button,
+    PanelBody = _wp$components.PanelBody,
+    PanelRow = _wp$components.PanelRow,
+    TextControl = _wp$components.TextControl;
+var Fragment = wp.element.Fragment;
+
+
+setLocaleData(window.gutenberg_examples_05_esnext.localeData, 'gutenberg-examples');
+
+registerBlockType('gutenberg-examples/example-06-compare-slider', {
+	title: __('Compare Slider', 'gutenberg-examples'),
+	icon: 'camera',
+	category: 'layout',
+	attributes: {
+		mediaID_left: {
+			type: 'number'
+		},
+		mediaURL_left: {
+			type: 'string',
+			source: 'attribute',
+			selector: 'img.compare-image-left',
+			attribute: 'src'
+		},
+		caption_left: {
+			type: 'string',
+			default: ''
+		},
+		mediaID_right: {
+			type: 'number'
+		},
+		mediaURL_right: {
+			type: 'string',
+			source: 'attribute',
+			selector: 'img.compare-image-right',
+			attribute: 'src'
+		},
+		caption_right: {
+			type: 'string',
+			default: ''
+		}
+	},
+	edit: function edit(props) {
+		var className = props.className,
+		    _props$attributes = props.attributes,
+		    mediaID_left = _props$attributes.mediaID_left,
+		    mediaURL_left = _props$attributes.mediaURL_left,
+		    caption_left = _props$attributes.caption_left,
+		    mediaID_right = _props$attributes.mediaID_right,
+		    mediaURL_right = _props$attributes.mediaURL_right,
+		    caption_right = _props$attributes.caption_right,
+		    setAttributes = props.setAttributes;
+
+
+		var onSelectImage_left = function onSelectImage_left(media) {
+			setAttributes({
+				mediaURL_left: media.url,
+				mediaID_left: media.id
+			});
+		};
+		var onSelectImage_right = function onSelectImage_right(media) {
+			setAttributes({
+				mediaURL_right: media.url,
+				mediaID_right: media.id
+			});
+		};
+		function onChangeCaptionLeft(text) {
+			setAttributes({
+				caption_left: text
+			});
+		};
+		function onChangeCaptionRight(text) {
+			setAttributes({
+				caption_right: text
+			});
+		};
+
+		return wp.element.createElement(
+			Fragment,
+			null,
+			wp.element.createElement(
+				InspectorControls,
+				null,
+				wp.element.createElement(
+					'div',
+					null,
+					wp.element.createElement(TextControl, {
+						label: 'Left Caption',
+						value: caption_left,
+						onChange: onChangeCaptionLeft
+					}),
+					wp.element.createElement(TextControl, {
+						label: 'Right Caption',
+						value: caption_right,
+						onChange: onChangeCaptionRight
+					})
+				)
+			),
+			wp.element.createElement(
+				'div',
+				{ className: className },
+				wp.element.createElement(
+					'div',
+					{ className: 'cslider-image-left' },
+					wp.element.createElement(MediaUpload, {
+						onSelect: onSelectImage_left,
+						className: 'compare-image-left',
+						allowedTypes: 'image',
+						value: mediaID_left,
+						render: function render(_ref) {
+							var open = _ref.open;
+							return wp.element.createElement(
+								Button,
+								{ className: mediaID_left ? 'image-button' : 'button button-large', onClick: open },
+								!mediaID_left ? __('Upload Before Image', 'gutenberg-examples') : wp.element.createElement('img', { src: mediaURL_left, alt: __('Before Image', 'gutenberg-examples') })
+							);
+						}
+					})
+				),
+				wp.element.createElement(
+					'div',
+					{ className: 'cslider-image-right' },
+					wp.element.createElement(MediaUpload, {
+						onSelect: onSelectImage_right,
+						className: 'compare-image-right',
+						allowedTypes: 'image',
+						value: mediaID_right,
+						render: function render(_ref2) {
+							var open = _ref2.open;
+							return wp.element.createElement(
+								Button,
+								{ className: mediaID_right ? 'image-button' : 'button button-large', onClick: open },
+								!mediaID_right ? __('Upload After Image', 'gutenberg-examples') : wp.element.createElement('img', { src: mediaURL_right, alt: __('After Image', 'gutenberg-examples') })
+							);
+						}
+					})
+				)
+			)
+		);
+	},
+	save: function save(props) {
+		var className = props.className,
+		    _props$attributes2 = props.attributes,
+		    mediaURL_left = _props$attributes2.mediaURL_left,
+		    caption_left = _props$attributes2.caption_left,
+		    mediaURL_right = _props$attributes2.mediaURL_right,
+		    caption_right = _props$attributes2.caption_right;
+
+		return wp.element.createElement(
+			'div',
+			{ className: className },
+			wp.element.createElement(
+				'div',
+				{ 'class': 'ics-slide-wrapper twentytwenty-container', 'data-caption-left': caption_left, 'data-caption-right': caption_right },
+				mediaURL_left && wp.element.createElement('img', { className: 'compare-image-left', src: mediaURL_left, alt: __('Before Image', 'gutenberg-examples') }),
+				mediaURL_right && wp.element.createElement('img', { className: 'compare-image-right', src: mediaURL_right, alt: __('After Image', 'gutenberg-examples') })
+			)
+		);
+	}
+});
+
+/***/ })
+/******/ ]);

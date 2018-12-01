@@ -5,8 +5,17 @@ const {
 const {
 	RichText,
 	MediaUpload,
+    InspectorControls,
 } = wp.editor;
-const { Button } = wp.components;
+const {
+	Button,
+    PanelBody,
+    PanelRow,
+	TextControl,
+} = wp.components;
+const {
+    Fragment
+} = wp.element;
 
 setLocaleData( window.gutenberg_examples_05_esnext.localeData, 'gutenberg-examples' );
 
@@ -24,6 +33,10 @@ registerBlockType( 'gutenberg-examples/example-06-compare-slider', {
 			selector: 'img.compare-image-left',
 			attribute: 'src',
 		},
+		caption_left: {
+			type: 'string',
+			default: ''
+		},
 		mediaID_right: {
 			type: 'number',
 		},
@@ -33,6 +46,10 @@ registerBlockType( 'gutenberg-examples/example-06-compare-slider', {
 			selector: 'img.compare-image-right',
 			attribute: 'src',
 		},
+		caption_right: {
+			type: 'string',
+			default: ''
+		},
 	},
 	edit: ( props ) => {
 		const {
@@ -40,8 +57,10 @@ registerBlockType( 'gutenberg-examples/example-06-compare-slider', {
 			attributes: {
 				mediaID_left,
 				mediaURL_left,
+				caption_left,
 				mediaID_right,
 				mediaURL_right,
+				caption_right,
 			},
 			setAttributes,
 		} = props;
@@ -58,8 +77,35 @@ registerBlockType( 'gutenberg-examples/example-06-compare-slider', {
 				mediaID_right: media.id,
 			} );
 		};
+		function onChangeCaptionLeft(text) {
+			setAttributes({
+				caption_left: text
+			})
+		};
+		function onChangeCaptionRight(text) {
+			setAttributes({
+				caption_right: text
+			})
+		};
 
 		return (
+			<Fragment>
+
+			<InspectorControls>
+				<div>
+					<TextControl
+						label='Left Caption'
+						value={ caption_left }
+						onChange={ onChangeCaptionLeft }
+					/>
+					<TextControl
+						label='Right Caption'
+						value={ caption_right }
+						onChange={ onChangeCaptionRight }
+					/>
+				</div>
+			</InspectorControls>
+
 			<div className={ className }>
 				<div className="cslider-image-left">
 					<MediaUpload
@@ -88,6 +134,7 @@ registerBlockType( 'gutenberg-examples/example-06-compare-slider', {
 					/>
 				</div>
 			</div>
+			</Fragment>
 		);
 	},
 	save: ( props ) => {
@@ -95,12 +142,14 @@ registerBlockType( 'gutenberg-examples/example-06-compare-slider', {
 			className,
 			attributes: {
 				mediaURL_left,
+				caption_left,
 				mediaURL_right,
+				caption_right,
 			},
 		} = props;
 		return (
 			<div className={ className }>
-				<div id="container1" class="twentytwenty-container">
+				<div class="ics-slide-wrapper twentytwenty-container" data-caption-left={ caption_left } data-caption-right={ caption_right }>
 				{
 					mediaURL_left && (
 						<img className="compare-image-left" src={ mediaURL_left } alt={ __( 'Before Image', 'gutenberg-examples' ) } />
