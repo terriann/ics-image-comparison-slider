@@ -27,6 +27,8 @@ yarn.lock
 tests
 vendor
 node_modules
+wiki
+dist
 *.sql
 *.tar.gz
 *.zip

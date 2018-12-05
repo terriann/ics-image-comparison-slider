@@ -3,9 +3,33 @@
   "version": "0.1.0",
   "main": "Gruntfile.js",
   "author": "Terri Ann Swallow",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/terriann/ics-image-comparison-slider"
+  },
   "devDependencies": {
+    "concurrently": "^4.1.0",
+    "eslint": "^5.2.0",
+    "eslint-config-wordpress": "^2.0.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-react": "^7.10.0",
+    "eslint-plugin-wordpress": "git://github.com/WordPress-Coding-Standards/eslint-plugin-wordpress.git#1774343f6226052a46b081e01db3fca8793cc9f1",
     "grunt": "~0.4.5",
     "grunt-wp-i18n": "^1.0.2",
-    "grunt-wp-readme-to-markdown": "~1.0.0"
+    "grunt-wp-readme-to-markdown": "~1.0.0",
+    "release-it": "^8.2.0"
+  },
+  "scripts": {
+    "dev:block:06-compare-slider": "cd blocks/06-compare-slider && npm run dev",
+    "dev:blocks": "concurrently \"npm run dev:block:06-compare-slider\" ",
+    "build:block:06-compare-slider": "cd blocks/06-compare-slider && npm run build",
+    "build:blocks": "concurrently \"npm run build:block:06-compare-slider\" ",
+    "lint-js": "eslint .",
+    "lint-js:fix": "eslint . --fix",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:grunt": "grunt basic",
+    "build": "concurrently \"npm run build:grunt ",
+    "readme": "grunt readme",
+    "release": "release-it"
   }
 }
