@@ -29,6 +29,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:grunt": "grunt basic",
     "build": "concurrently \"npm run build:grunt ",
+    "readme": "grunt readme",
     "release": "release-it"
   }
 }
