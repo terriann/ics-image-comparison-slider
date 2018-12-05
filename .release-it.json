@@ -1,0 +1,89 @@
+{
+"dry-run": true,
+"verbose": true,
+  "pkgFiles": [
+    "package.json"
+  ],
+  "increment": "patch",
+  "preReleaseId": null,
+  "safeBump": true,
+"requireCleanWorkingDir": false,
+
+  "src": {
+    "commit": true,
+    "commitMessage": "Release ${version}",
+    "commitArgs": "",
+    "tag": true,
+    "tagName": "${version}",
+    "tagAnnotation": "Release ${version}",
+    "tagArgs": "",
+    "push": true,
+    "pushArgs": "",
+    "pushRepo": "origin",
+    "buildCommand": "bash bin/plugin-build-dist.sh ",
+    "afterReleaseCommand": "echo Successfully released ${version} to ${dist.repo}.",
+    "beforeStartCommand": false,
+    "beforeChangelogCommand": false,
+    "changelogCommand": "git log --pretty=format:\"* %s (%h)\" [REV_RANGE]",
+    "addUntrackedFiles": false
+  },
+  "npm": {
+    "publish": false
+  },
+  "github": {
+    "release": false,
+    "releaseName": "Release ${version}",
+    "preRelease": false,
+    "draft": false,
+    "tokenRef": "GITHUB_TOKEN",
+    "assets": null,
+    "host": null,
+    "timeout": 0,
+    "proxy": false
+  },
+  "dist": {
+    "repo": false,
+    "stageDir": ".stage",
+    "baseDir": "dist",
+    "files": [
+      "**/*"
+    ],
+    "pkgFiles": null,
+    "commit": true,
+    "commitMessage": "Release ${version}",
+    "commitArgs": "",
+    "tag": true,
+    "tagName": "${version}",
+    "tagAnnotation": "Release ${version}",
+    "tagArgs": "",
+    "push": true,
+    "pushArgs": "",
+    "beforeStageCommand": false,
+    "afterReleaseCommand": false,
+    "addUntrackedFiles": false,
+    "github": {
+      "release": false
+    },
+    "npm": {
+      "publish": false
+    }
+  },
+  "prompt": {
+    "src": {
+      "status": false,
+      "commit": true,
+      "tag": true,
+      "push": true,
+      "release": true,
+      "publish": true
+    },
+    "dist": {
+      "status": false,
+      "commit": true,
+      "tag": false,
+      "push": true,
+      "release": false,
+      "publish": false
+    }
+  }
+}
