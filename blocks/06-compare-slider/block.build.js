@@ -79,7 +79,8 @@ var _wp$components = wp.components,
     Button = _wp$components.Button,
     PanelBody = _wp$components.PanelBody,
     PanelRow = _wp$components.PanelRow,
-    TextControl = _wp$components.TextControl;
+    TextControl = _wp$components.TextControl,
+    RangeControl = _wp$components.RangeControl;
 var Fragment = wp.element.Fragment;
 
 
@@ -115,6 +116,10 @@ registerBlockType('gutenberg-examples/example-06-compare-slider', {
 		caption_right: {
 			type: 'string',
 			default: ''
+		},
+		default_offset_pct: {
+			type: 'number',
+			default: 50
 		}
 	},
 	edit: function edit(props) {
@@ -126,6 +131,7 @@ registerBlockType('gutenberg-examples/example-06-compare-slider', {
 		    mediaID_right = _props$attributes.mediaID_right,
 		    mediaURL_right = _props$attributes.mediaURL_right,
 		    caption_right = _props$attributes.caption_right,
+		    default_offset_pct = _props$attributes.default_offset_pct,
 		    setAttributes = props.setAttributes;
 
 
@@ -151,6 +157,11 @@ registerBlockType('gutenberg-examples/example-06-compare-slider', {
 				caption_right: text
 			});
 		};
+		function onStartPercentChange(percent) {
+			setAttributes({
+				default_offset_pct: percent
+			});
+		};
 
 		return wp.element.createElement(
 			Fragment,
@@ -159,8 +170,8 @@ registerBlockType('gutenberg-examples/example-06-compare-slider', {
 				InspectorControls,
 				null,
 				wp.element.createElement(
-					'div',
-					null,
+					PanelBody,
+					{ title: __('Comparison Slider Settings') },
 					wp.element.createElement(TextControl, {
 						label: 'Left Caption',
 						value: caption_left,
@@ -170,6 +181,13 @@ registerBlockType('gutenberg-examples/example-06-compare-slider', {
 						label: 'Right Caption',
 						value: caption_right,
 						onChange: onChangeCaptionRight
+					}),
+					wp.element.createElement(RangeControl, {
+						label: __('Starting Percentage'),
+						value: default_offset_pct,
+						onChange: onStartPercentChange,
+						min: 0,
+						max: 100
 					})
 				)
 			),
@@ -221,14 +239,15 @@ registerBlockType('gutenberg-examples/example-06-compare-slider', {
 		    mediaURL_left = _props$attributes2.mediaURL_left,
 		    caption_left = _props$attributes2.caption_left,
 		    mediaURL_right = _props$attributes2.mediaURL_right,
-		    caption_right = _props$attributes2.caption_right;
+		    caption_right = _props$attributes2.caption_right,
+		    default_offset_pct = _props$attributes2.default_offset_pct;
 
 		return wp.element.createElement(
 			'div',
 			{ className: className },
 			wp.element.createElement(
 				'div',
-				{ 'class': 'ics-slide-wrapper twentytwenty-container', 'data-caption-left': caption_left, 'data-caption-right': caption_right },
+				{ 'class': 'ics-slide-wrapper twentytwenty-container', 'data-caption-left': caption_left, 'data-caption-right': caption_right, 'data-offset-percent': default_offset_pct },
 				mediaURL_left && wp.element.createElement('img', { className: 'compare-image-left', src: mediaURL_left, alt: __('Before Image', 'gutenberg-examples') }),
 				mediaURL_right && wp.element.createElement('img', { className: 'compare-image-right', src: mediaURL_right, alt: __('After Image', 'gutenberg-examples') })
 			)

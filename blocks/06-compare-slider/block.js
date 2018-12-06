@@ -12,6 +12,7 @@ const {
     PanelBody,
     PanelRow,
 	TextControl,
+	RangeControl,
 } = wp.components;
 const {
     Fragment
@@ -50,6 +51,10 @@ registerBlockType( 'gutenberg-examples/example-06-compare-slider', {
 			type: 'string',
 			default: ''
 		},
+		default_offset_pct: {
+			type: 'number',
+			default: 50,
+		}
 	},
 	edit: ( props ) => {
 		const {
@@ -61,6 +66,7 @@ registerBlockType( 'gutenberg-examples/example-06-compare-slider', {
 				mediaID_right,
 				mediaURL_right,
 				caption_right,
+				default_offset_pct,
 			},
 			setAttributes,
 		} = props;
@@ -87,12 +93,17 @@ registerBlockType( 'gutenberg-examples/example-06-compare-slider', {
 				caption_right: text
 			})
 		};
+		function onStartPercentChange(percent) {
+			setAttributes({
+				default_offset_pct: percent
+			})
+		};
 
 		return (
 			<Fragment>
 
 			<InspectorControls>
-				<div>
+				<PanelBody title={ __( 'Comparison Slider Settings' ) }>
 					<TextControl
 						label='Left Caption'
 						value={ caption_left }
@@ -103,7 +114,18 @@ registerBlockType( 'gutenberg-examples/example-06-compare-slider', {
 						value={ caption_right }
 						onChange={ onChangeCaptionRight }
 					/>
-				</div>
+
+					<RangeControl
+						label={ __( 'Starting Percentage' ) }
+						value={ default_offset_pct }
+						onChange={ onStartPercentChange }
+						min={ 0 }
+						max={ 100 }
+					/>
+
+					</PanelBody>
+
+
 			</InspectorControls>
 
 			<div className={ className }>
@@ -145,11 +167,12 @@ registerBlockType( 'gutenberg-examples/example-06-compare-slider', {
 				caption_left,
 				mediaURL_right,
 				caption_right,
+				default_offset_pct,
 			},
 		} = props;
 		return (
 			<div className={ className }>
-				<div class="ics-slide-wrapper twentytwenty-container" data-caption-left={ caption_left } data-caption-right={ caption_right }>
+				<div class="ics-slide-wrapper twentytwenty-container" data-caption-left={ caption_left } data-caption-right={ caption_right } data-offset-percent= { default_offset_pct }>
 				{
 					mediaURL_left && (
 						<img className="compare-image-left" src={ mediaURL_left } alt={ __( 'Before Image', 'gutenberg-examples' ) } />
