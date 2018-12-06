@@ -13,6 +13,7 @@ const {
     PanelRow,
 	TextControl,
 	RangeControl,
+	ToggleControl,
 } = wp.components;
 const {
     Fragment
@@ -54,6 +55,10 @@ registerBlockType( 'gutenberg-examples/example-06-compare-slider', {
 		default_offset_pct: {
 			type: 'number',
 			default: 50,
+		},
+		no_overlay: {
+			type: 'bool',
+			default: false,
 		}
 	},
 	edit: ( props ) => {
@@ -67,6 +72,7 @@ registerBlockType( 'gutenberg-examples/example-06-compare-slider', {
 				mediaURL_right,
 				caption_right,
 				default_offset_pct,
+				no_overlay,
 			},
 			setAttributes,
 		} = props;
@@ -98,6 +104,11 @@ registerBlockType( 'gutenberg-examples/example-06-compare-slider', {
 				default_offset_pct: percent
 			})
 		};
+		function onHideOverlayChange(set) {
+			setAttributes({
+				no_overlay: set
+			})
+		};
 
 		return (
 			<Fragment>
@@ -123,9 +134,12 @@ registerBlockType( 'gutenberg-examples/example-06-compare-slider', {
 						max={ 100 }
 					/>
 
-					</PanelBody>
-
-
+					<ToggleControl
+						label={ __( 'Hide Overlay' ) }
+						checked={ no_overlay }
+						onChange={ onHideOverlayChange }
+					/>
+				</PanelBody>
 			</InspectorControls>
 
 			<div className={ className }>
@@ -168,11 +182,12 @@ registerBlockType( 'gutenberg-examples/example-06-compare-slider', {
 				mediaURL_right,
 				caption_right,
 				default_offset_pct,
+				no_overlay,
 			},
 		} = props;
 		return (
 			<div className={ className }>
-				<div class="ics-slide-wrapper twentytwenty-container" data-caption-left={ caption_left } data-caption-right={ caption_right } data-offset-percent= { default_offset_pct }>
+				<div class="ics-slide-wrapper twentytwenty-container" data-caption-left={ caption_left } data-caption-right={ caption_right } data-offset-percent= { default_offset_pct } data-no-overlay={ no_overlay }>
 				{
 					mediaURL_left && (
 						<img className="compare-image-left" src={ mediaURL_left } alt={ __( 'Before Image', 'gutenberg-examples' ) } />

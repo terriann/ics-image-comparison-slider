@@ -80,7 +80,8 @@ var _wp$components = wp.components,
     PanelBody = _wp$components.PanelBody,
     PanelRow = _wp$components.PanelRow,
     TextControl = _wp$components.TextControl,
-    RangeControl = _wp$components.RangeControl;
+    RangeControl = _wp$components.RangeControl,
+    ToggleControl = _wp$components.ToggleControl;
 var Fragment = wp.element.Fragment;
 
 
@@ -120,6 +121,10 @@ registerBlockType('gutenberg-examples/example-06-compare-slider', {
 		default_offset_pct: {
 			type: 'number',
 			default: 50
+		},
+		no_overlay: {
+			type: 'bool',
+			default: false
 		}
 	},
 	edit: function edit(props) {
@@ -132,6 +137,7 @@ registerBlockType('gutenberg-examples/example-06-compare-slider', {
 		    mediaURL_right = _props$attributes.mediaURL_right,
 		    caption_right = _props$attributes.caption_right,
 		    default_offset_pct = _props$attributes.default_offset_pct,
+		    no_overlay = _props$attributes.no_overlay,
 		    setAttributes = props.setAttributes;
 
 
@@ -162,6 +168,11 @@ registerBlockType('gutenberg-examples/example-06-compare-slider', {
 				default_offset_pct: percent
 			});
 		};
+		function onHideOverlayChange(set) {
+			setAttributes({
+				no_overlay: set
+			});
+		};
 
 		return wp.element.createElement(
 			Fragment,
@@ -188,6 +199,11 @@ registerBlockType('gutenberg-examples/example-06-compare-slider', {
 						onChange: onStartPercentChange,
 						min: 0,
 						max: 100
+					}),
+					wp.element.createElement(ToggleControl, {
+						label: __('Hide Overlay'),
+						checked: no_overlay,
+						onChange: onHideOverlayChange
 					})
 				)
 			),
@@ -240,14 +256,15 @@ registerBlockType('gutenberg-examples/example-06-compare-slider', {
 		    caption_left = _props$attributes2.caption_left,
 		    mediaURL_right = _props$attributes2.mediaURL_right,
 		    caption_right = _props$attributes2.caption_right,
-		    default_offset_pct = _props$attributes2.default_offset_pct;
+		    default_offset_pct = _props$attributes2.default_offset_pct,
+		    no_overlay = _props$attributes2.no_overlay;
 
 		return wp.element.createElement(
 			'div',
 			{ className: className },
 			wp.element.createElement(
 				'div',
-				{ 'class': 'ics-slide-wrapper twentytwenty-container', 'data-caption-left': caption_left, 'data-caption-right': caption_right, 'data-offset-percent': default_offset_pct },
+				{ 'class': 'ics-slide-wrapper twentytwenty-container', 'data-caption-left': caption_left, 'data-caption-right': caption_right, 'data-offset-percent': default_offset_pct, 'data-no-overlay': no_overlay },
 				mediaURL_left && wp.element.createElement('img', { className: 'compare-image-left', src: mediaURL_left, alt: __('Before Image', 'gutenberg-examples') }),
 				mediaURL_right && wp.element.createElement('img', { className: 'compare-image-right', src: mediaURL_right, alt: __('After Image', 'gutenberg-examples') })
 			)
