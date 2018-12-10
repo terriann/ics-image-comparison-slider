@@ -61,6 +61,18 @@ registerBlockType( 'gutenberg-examples/example-06-compare-slider', {
 			type: 'bool',
 			default: false,
 		},
+		handle_move: {
+			type: 'bool',
+			default: true,
+		},
+		hover_move: {
+			type: 'bool',
+			default: true,
+		},
+		click_move: {
+			type: 'bool',
+			default: false,
+		},
 		orientation : {
 			type: 'string', // is enum a type I could use here?
 			default: 'horizontal'
@@ -79,6 +91,9 @@ registerBlockType( 'gutenberg-examples/example-06-compare-slider', {
 				default_offset_pct,
 				no_overlay,
 				orientation,
+				handle_move,
+				hover_move,
+				click_move,
 			},
 			setAttributes,
 		} = props;
@@ -120,6 +135,21 @@ registerBlockType( 'gutenberg-examples/example-06-compare-slider', {
 				orientation: set
 			})
 		};
+		function onHandleMoveChange(set) {
+			setAttributes({
+				handle_move: set
+			})
+		};
+		function onHoverMoveChange(set) {
+			setAttributes({
+				hover_move: set
+			})
+		};
+		function onClickMoveChange(set) {
+			setAttributes({
+				click_move: set
+			})
+		};
 
 		return (
 			<Fragment>
@@ -158,6 +188,21 @@ registerBlockType( 'gutenberg-examples/example-06-compare-slider', {
 							{ label: 'Vertical', value: 'vertical' },
 						] }
 						onChange={ onOrientationChange }
+					/>
+					<ToggleControl
+						label={ __( 'Move With Handle' ) }
+						checked={ handle_move }
+						onChange={ onHandleMoveChange }
+					/>
+					<ToggleControl
+						label={ __( 'Hover Move' ) }
+						checked={ hover_move }
+						onChange={ onHoverMoveChange }
+					/>
+					<ToggleControl
+						label={ __( 'Click Move' ) }
+						checked={ click_move }
+						onChange={ onClickMoveChange }
 					/>
 				</PanelBody>
 			</InspectorControls>
@@ -204,11 +249,14 @@ registerBlockType( 'gutenberg-examples/example-06-compare-slider', {
 				default_offset_pct,
 				no_overlay,
 				orientation,
+				handle_move,
+				hover_move,
+				click_move,
 			},
 		} = props;
 		return (
 			<div className={ className }>
-				<div class="ics-slide-wrapper twentytwenty-container" data-caption-left={ caption_left } data-caption-right={ caption_right } data-offset-percent= { default_offset_pct } data-no-overlay={ no_overlay } data-orientation={ orientation }>
+				<div class="ics-slide-wrapper twentytwenty-container" data-caption-left={ caption_left } data-caption-right={ caption_right } data-offset-percent= { default_offset_pct } data-no-overlay={ no_overlay } data-orientation={ orientation } data-handle-move={ handle_move } data-hover-move={ hover_move } data-click-move={ click_move }>
 				{
 					mediaURL_left && (
 						<img className="compare-image-left" src={ mediaURL_left } alt={ __( 'Before Image', 'gutenberg-examples' ) } />
