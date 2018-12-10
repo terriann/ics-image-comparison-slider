@@ -81,7 +81,8 @@ var _wp$components = wp.components,
     PanelRow = _wp$components.PanelRow,
     TextControl = _wp$components.TextControl,
     RangeControl = _wp$components.RangeControl,
-    ToggleControl = _wp$components.ToggleControl;
+    ToggleControl = _wp$components.ToggleControl,
+    SelectControl = _wp$components.SelectControl;
 var Fragment = wp.element.Fragment;
 
 
@@ -125,6 +126,10 @@ registerBlockType('gutenberg-examples/example-06-compare-slider', {
 		no_overlay: {
 			type: 'bool',
 			default: false
+		},
+		orientation: {
+			type: 'string', // is enum a type I could use here?
+			default: 'horizontal'
 		}
 	},
 	edit: function edit(props) {
@@ -138,6 +143,7 @@ registerBlockType('gutenberg-examples/example-06-compare-slider', {
 		    caption_right = _props$attributes.caption_right,
 		    default_offset_pct = _props$attributes.default_offset_pct,
 		    no_overlay = _props$attributes.no_overlay,
+		    orientation = _props$attributes.orientation,
 		    setAttributes = props.setAttributes;
 
 
@@ -173,6 +179,11 @@ registerBlockType('gutenberg-examples/example-06-compare-slider', {
 				no_overlay: set
 			});
 		};
+		function onOrientationChange(set) {
+			setAttributes({
+				orientation: set
+			});
+		};
 
 		return wp.element.createElement(
 			Fragment,
@@ -204,6 +215,12 @@ registerBlockType('gutenberg-examples/example-06-compare-slider', {
 						label: __('Hide Overlay'),
 						checked: no_overlay,
 						onChange: onHideOverlayChange
+					}),
+					wp.element.createElement(SelectControl, {
+						label: 'Orientation',
+						value: orientation,
+						options: [{ label: 'Horizontal', value: 'horizontal' }, { label: 'Vertical', value: 'vertical' }],
+						onChange: onOrientationChange
 					})
 				)
 			),
@@ -257,14 +274,15 @@ registerBlockType('gutenberg-examples/example-06-compare-slider', {
 		    mediaURL_right = _props$attributes2.mediaURL_right,
 		    caption_right = _props$attributes2.caption_right,
 		    default_offset_pct = _props$attributes2.default_offset_pct,
-		    no_overlay = _props$attributes2.no_overlay;
+		    no_overlay = _props$attributes2.no_overlay,
+		    orientation = _props$attributes2.orientation;
 
 		return wp.element.createElement(
 			'div',
 			{ className: className },
 			wp.element.createElement(
 				'div',
-				{ 'class': 'ics-slide-wrapper twentytwenty-container', 'data-caption-left': caption_left, 'data-caption-right': caption_right, 'data-offset-percent': default_offset_pct, 'data-no-overlay': no_overlay },
+				{ 'class': 'ics-slide-wrapper twentytwenty-container', 'data-caption-left': caption_left, 'data-caption-right': caption_right, 'data-offset-percent': default_offset_pct, 'data-no-overlay': no_overlay, 'data-orientation': orientation },
 				mediaURL_left && wp.element.createElement('img', { className: 'compare-image-left', src: mediaURL_left, alt: __('Before Image', 'gutenberg-examples') }),
 				mediaURL_right && wp.element.createElement('img', { className: 'compare-image-right', src: mediaURL_right, alt: __('After Image', 'gutenberg-examples') })
 			)

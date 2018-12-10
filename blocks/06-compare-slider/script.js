@@ -1,6 +1,7 @@
 jQuery(function(){
     jQuery('.ics-slide-wrapper').each(function(){
 		var item = jQuery(this),
+			orientation_set = item.data('orientation'),
 			caption_before = item.data('caption-left'),
 			caption_after = item.data('caption-right'),
 			default_offset_pct = item.data('offset-percent') / 100.0,
@@ -8,7 +9,7 @@ jQuery(function(){
 
 		item.twentytwenty({
 			default_offset_pct: default_offset_pct,
-			//: 'vertical', // Orientation of the before and after images ('horizontal' or 'vertical')
+			orientation: orientation_set,
 			before_label: caption_before,
 			after_label: caption_after,
 			no_overlay: no_overlay,

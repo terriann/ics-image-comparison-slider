@@ -14,6 +14,7 @@ const {
 	TextControl,
 	RangeControl,
 	ToggleControl,
+	SelectControl,
 } = wp.components;
 const {
     Fragment
@@ -59,6 +60,10 @@ registerBlockType( 'gutenberg-examples/example-06-compare-slider', {
 		no_overlay: {
 			type: 'bool',
 			default: false,
+		},
+		orientation : {
+			type: 'string', // is enum a type I could use here?
+			default: 'horizontal'
 		}
 	},
 	edit: ( props ) => {
@@ -73,6 +78,7 @@ registerBlockType( 'gutenberg-examples/example-06-compare-slider', {
 				caption_right,
 				default_offset_pct,
 				no_overlay,
+				orientation,
 			},
 			setAttributes,
 		} = props;
@@ -109,6 +115,11 @@ registerBlockType( 'gutenberg-examples/example-06-compare-slider', {
 				no_overlay: set
 			})
 		};
+		function onOrientationChange(set) {
+			setAttributes({
+				orientation: set
+			})
+		};
 
 		return (
 			<Fragment>
@@ -138,6 +149,15 @@ registerBlockType( 'gutenberg-examples/example-06-compare-slider', {
 						label={ __( 'Hide Overlay' ) }
 						checked={ no_overlay }
 						onChange={ onHideOverlayChange }
+					/>
+					<SelectControl
+						label="Orientation"
+						value={ orientation }
+						options={ [
+							{ label: 'Horizontal', value: 'horizontal' },
+							{ label: 'Vertical', value: 'vertical' },
+						] }
+						onChange={ onOrientationChange }
 					/>
 				</PanelBody>
 			</InspectorControls>
@@ -183,11 +203,12 @@ registerBlockType( 'gutenberg-examples/example-06-compare-slider', {
 				caption_right,
 				default_offset_pct,
 				no_overlay,
+				orientation,
 			},
 		} = props;
 		return (
 			<div className={ className }>
-				<div class="ics-slide-wrapper twentytwenty-container" data-caption-left={ caption_left } data-caption-right={ caption_right } data-offset-percent= { default_offset_pct } data-no-overlay={ no_overlay }>
+				<div class="ics-slide-wrapper twentytwenty-container" data-caption-left={ caption_left } data-caption-right={ caption_right } data-offset-percent= { default_offset_pct } data-no-overlay={ no_overlay } data-orientation={ orientation }>
 				{
 					mediaURL_left && (
 						<img className="compare-image-left" src={ mediaURL_left } alt={ __( 'Before Image', 'gutenberg-examples' ) } />
