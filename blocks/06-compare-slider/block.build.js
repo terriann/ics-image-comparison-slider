@@ -79,7 +79,10 @@ var _wp$components = wp.components,
     Button = _wp$components.Button,
     PanelBody = _wp$components.PanelBody,
     PanelRow = _wp$components.PanelRow,
-    TextControl = _wp$components.TextControl;
+    TextControl = _wp$components.TextControl,
+    RangeControl = _wp$components.RangeControl,
+    ToggleControl = _wp$components.ToggleControl,
+    SelectControl = _wp$components.SelectControl;
 var Fragment = wp.element.Fragment;
 
 
@@ -115,6 +118,30 @@ registerBlockType('gutenberg-examples/example-06-compare-slider', {
 		caption_right: {
 			type: 'string',
 			default: ''
+		},
+		default_offset_pct: {
+			type: 'number',
+			default: 50
+		},
+		no_overlay: {
+			type: 'bool',
+			default: false
+		},
+		handle_move: {
+			type: 'bool',
+			default: true
+		},
+		hover_move: {
+			type: 'bool',
+			default: true
+		},
+		click_move: {
+			type: 'bool',
+			default: false
+		},
+		orientation: {
+			type: 'string', // is enum a type I could use here?
+			default: 'horizontal'
 		}
 	},
 	edit: function edit(props) {
@@ -126,6 +153,12 @@ registerBlockType('gutenberg-examples/example-06-compare-slider', {
 		    mediaID_right = _props$attributes.mediaID_right,
 		    mediaURL_right = _props$attributes.mediaURL_right,
 		    caption_right = _props$attributes.caption_right,
+		    default_offset_pct = _props$attributes.default_offset_pct,
+		    no_overlay = _props$attributes.no_overlay,
+		    orientation = _props$attributes.orientation,
+		    handle_move = _props$attributes.handle_move,
+		    hover_move = _props$attributes.hover_move,
+		    click_move = _props$attributes.click_move,
 		    setAttributes = props.setAttributes;
 
 
@@ -151,6 +184,36 @@ registerBlockType('gutenberg-examples/example-06-compare-slider', {
 				caption_right: text
 			});
 		};
+		function onStartPercentChange(percent) {
+			setAttributes({
+				default_offset_pct: percent
+			});
+		};
+		function onHideOverlayChange(set) {
+			setAttributes({
+				no_overlay: set
+			});
+		};
+		function onOrientationChange(set) {
+			setAttributes({
+				orientation: set
+			});
+		};
+		function onHandleMoveChange(set) {
+			setAttributes({
+				handle_move: set
+			});
+		};
+		function onHoverMoveChange(set) {
+			setAttributes({
+				hover_move: set
+			});
+		};
+		function onClickMoveChange(set) {
+			setAttributes({
+				click_move: set
+			});
+		};
 
 		return wp.element.createElement(
 			Fragment,
@@ -159,8 +222,8 @@ registerBlockType('gutenberg-examples/example-06-compare-slider', {
 				InspectorControls,
 				null,
 				wp.element.createElement(
-					'div',
-					null,
+					PanelBody,
+					{ title: __('Comparison Slider Settings') },
 					wp.element.createElement(TextControl, {
 						label: 'Left Caption',
 						value: caption_left,
@@ -170,6 +233,39 @@ registerBlockType('gutenberg-examples/example-06-compare-slider', {
 						label: 'Right Caption',
 						value: caption_right,
 						onChange: onChangeCaptionRight
+					}),
+					wp.element.createElement(RangeControl, {
+						label: __('Starting Percentage'),
+						value: default_offset_pct,
+						onChange: onStartPercentChange,
+						min: 0,
+						max: 100
+					}),
+					wp.element.createElement(ToggleControl, {
+						label: __('Hide Overlay'),
+						checked: no_overlay,
+						onChange: onHideOverlayChange
+					}),
+					wp.element.createElement(SelectControl, {
+						label: 'Orientation',
+						value: orientation,
+						options: [{ label: 'Horizontal', value: 'horizontal' }, { label: 'Vertical', value: 'vertical' }],
+						onChange: onOrientationChange
+					}),
+					wp.element.createElement(ToggleControl, {
+						label: __('Move With Handle'),
+						checked: handle_move,
+						onChange: onHandleMoveChange
+					}),
+					wp.element.createElement(ToggleControl, {
+						label: __('Hover Move'),
+						checked: hover_move,
+						onChange: onHoverMoveChange
+					}),
+					wp.element.createElement(ToggleControl, {
+						label: __('Click Move'),
+						checked: click_move,
+						onChange: onClickMoveChange
 					})
 				)
 			),
@@ -221,14 +317,20 @@ registerBlockType('gutenberg-examples/example-06-compare-slider', {
 		    mediaURL_left = _props$attributes2.mediaURL_left,
 		    caption_left = _props$attributes2.caption_left,
 		    mediaURL_right = _props$attributes2.mediaURL_right,
-		    caption_right = _props$attributes2.caption_right;
+		    caption_right = _props$attributes2.caption_right,
+		    default_offset_pct = _props$attributes2.default_offset_pct,
+		    no_overlay = _props$attributes2.no_overlay,
+		    orientation = _props$attributes2.orientation,
+		    handle_move = _props$attributes2.handle_move,
+		    hover_move = _props$attributes2.hover_move,
+		    click_move = _props$attributes2.click_move;
 
 		return wp.element.createElement(
 			'div',
 			{ className: className },
 			wp.element.createElement(
 				'div',
-				{ 'class': 'ics-slide-wrapper twentytwenty-container', 'data-caption-left': caption_left, 'data-caption-right': caption_right },
+				{ 'class': 'ics-slide-wrapper twentytwenty-container', 'data-caption-left': caption_left, 'data-caption-right': caption_right, 'data-offset-percent': default_offset_pct, 'data-no-overlay': no_overlay, 'data-orientation': orientation, 'data-handle-move': handle_move, 'data-hover-move': hover_move, 'data-click-move': click_move },
 				mediaURL_left && wp.element.createElement('img', { className: 'compare-image-left', src: mediaURL_left, alt: __('Before Image', 'gutenberg-examples') }),
 				mediaURL_right && wp.element.createElement('img', { className: 'compare-image-right', src: mediaURL_right, alt: __('After Image', 'gutenberg-examples') })
 			)

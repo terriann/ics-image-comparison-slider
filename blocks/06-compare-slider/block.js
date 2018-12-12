@@ -12,6 +12,9 @@ const {
     PanelBody,
     PanelRow,
 	TextControl,
+	RangeControl,
+	ToggleControl,
+	SelectControl,
 } = wp.components;
 const {
     Fragment
@@ -50,6 +53,30 @@ registerBlockType( 'gutenberg-examples/example-06-compare-slider', {
 			type: 'string',
 			default: ''
 		},
+		default_offset_pct: {
+			type: 'number',
+			default: 50,
+		},
+		no_overlay: {
+			type: 'bool',
+			default: false,
+		},
+		handle_move: {
+			type: 'bool',
+			default: true,
+		},
+		hover_move: {
+			type: 'bool',
+			default: true,
+		},
+		click_move: {
+			type: 'bool',
+			default: false,
+		},
+		orientation : {
+			type: 'string', // is enum a type I could use here?
+			default: 'horizontal'
+		}
 	},
 	edit: ( props ) => {
 		const {
@@ -61,6 +88,12 @@ registerBlockType( 'gutenberg-examples/example-06-compare-slider', {
 				mediaID_right,
 				mediaURL_right,
 				caption_right,
+				default_offset_pct,
+				no_overlay,
+				orientation,
+				handle_move,
+				hover_move,
+				click_move,
 			},
 			setAttributes,
 		} = props;
@@ -87,12 +120,42 @@ registerBlockType( 'gutenberg-examples/example-06-compare-slider', {
 				caption_right: text
 			})
 		};
+		function onStartPercentChange(percent) {
+			setAttributes({
+				default_offset_pct: percent
+			})
+		};
+		function onHideOverlayChange(set) {
+			setAttributes({
+				no_overlay: set
+			})
+		};
+		function onOrientationChange(set) {
+			setAttributes({
+				orientation: set
+			})
+		};
+		function onHandleMoveChange(set) {
+			setAttributes({
+				handle_move: set
+			})
+		};
+		function onHoverMoveChange(set) {
+			setAttributes({
+				hover_move: set
+			})
+		};
+		function onClickMoveChange(set) {
+			setAttributes({
+				click_move: set
+			})
+		};
 
 		return (
 			<Fragment>
 
 			<InspectorControls>
-				<div>
+				<PanelBody title={ __( 'Comparison Slider Settings' ) }>
 					<TextControl
 						label='Left Caption'
 						value={ caption_left }
@@ -103,7 +166,45 @@ registerBlockType( 'gutenberg-examples/example-06-compare-slider', {
 						value={ caption_right }
 						onChange={ onChangeCaptionRight }
 					/>
-				</div>
+
+					<RangeControl
+						label={ __( 'Starting Percentage' ) }
+						value={ default_offset_pct }
+						onChange={ onStartPercentChange }
+						min={ 0 }
+						max={ 100 }
+					/>
+
+					<ToggleControl
+						label={ __( 'Hide Overlay' ) }
+						checked={ no_overlay }
+						onChange={ onHideOverlayChange }
+					/>
+					<SelectControl
+						label="Orientation"
+						value={ orientation }
+						options={ [
+							{ label: 'Horizontal', value: 'horizontal' },
+							{ label: 'Vertical', value: 'vertical' },
+						] }
+						onChange={ onOrientationChange }
+					/>
+					<ToggleControl
+						label={ __( 'Move With Handle' ) }
+						checked={ handle_move }
+						onChange={ onHandleMoveChange }
+					/>
+					<ToggleControl
+						label={ __( 'Hover Move' ) }
+						checked={ hover_move }
+						onChange={ onHoverMoveChange }
+					/>
+					<ToggleControl
+						label={ __( 'Click Move' ) }
+						checked={ click_move }
+						onChange={ onClickMoveChange }
+					/>
+				</PanelBody>
 			</InspectorControls>
 
 			<div className={ className }>
@@ -145,11 +246,17 @@ registerBlockType( 'gutenberg-examples/example-06-compare-slider', {
 				caption_left,
 				mediaURL_right,
 				caption_right,
+				default_offset_pct,
+				no_overlay,
+				orientation,
+				handle_move,
+				hover_move,
+				click_move,
 			},
 		} = props;
 		return (
 			<div className={ className }>
-				<div class="ics-slide-wrapper twentytwenty-container" data-caption-left={ caption_left } data-caption-right={ caption_right }>
+				<div class="ics-slide-wrapper twentytwenty-container" data-caption-left={ caption_left } data-caption-right={ caption_right } data-offset-percent= { default_offset_pct } data-no-overlay={ no_overlay } data-orientation={ orientation } data-handle-move={ handle_move } data-hover-move={ hover_move } data-click-move={ click_move }>
 				{
 					mediaURL_left && (
 						<img className="compare-image-left" src={ mediaURL_left } alt={ __( 'Before Image', 'gutenberg-examples' ) } />
