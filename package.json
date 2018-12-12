@@ -28,7 +28,8 @@
     "lint-js:fix": "eslint . --fix",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build:grunt": "grunt basic",
-    "build": "concurrently \"npm run build:grunt ",
+    "build:steps": "concurrently \"npm run build:grunt \"",
+    "build": "npm run build:steps && bash bin/plugin-build-dist.sh && exit 1",
     "readme": "grunt readme",
     "release": "release-it"
   }
