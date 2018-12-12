@@ -1,10 +1,9 @@
 <?php
-
 /**
- * Plugin Name: Gutenberg Compare Slider
- * Plugin URI: https://github.com/WordPress/gutenberg-examples
- * Description: This is a plugin demonstrating how to register new blocks for the Gutenberg editor.
- * Version: 1.0.2
+ * Plugin Name: Image Comparison Slider
+ * Plugin URI: https://github.com/terriann/ics-image-comparison-slider
+ * Description: A WordPress block editor plugin that supports image comparison slider blocks.
+ * Version: 0.1.0
  * Author: Terri Swallow
  * Author URI: http://terriswallow.com
  *
